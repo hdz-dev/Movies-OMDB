@@ -9,6 +9,7 @@
   let hero = "";
   let movie;
   let stars = [1, 2, 3, 4, 5];
+  let detalles = false;
   async function api(values) {
     await fetch(
       "https://www.omdbapi.com/?apikey=29bdd042&t=" + values + "&plot=full"
@@ -99,8 +100,27 @@
       </div>
 
       <div class="flex flex-row justify-center my-4">
-        <button class="bg-blackx margin-auto rounded-3xl border-2 border-white text-white px-4 py-1">Mas detalles</button>
+        <button on:click={() => detalles = !detalles} class="bg-blackx margin-auto rounded-3xl border-2 border-white text-white px-4 py-1">{(!detalles)?"Mas detalles":"Menos detalles"}</button>
       </div>
+
+      {#if detalles}
+
+      <div id="detalles" class="px-8 ">
+        <p class="text-xs text-white">Tipo</p>
+        <p class="text-xs text-white font-bold mb-2">{movie.Type}</p>
+        <p class="text-xs text-white">Pais</p>
+        <p class="text-xs text-white font-bold mb-2">{movie.Country}</p>
+        <p class="text-xs text-white">Lenguaje</p>
+        <p class="text-xs text-white font-bold mb-2">{movie.Language}</p>
+        <p class="text-xs text-white">Actores</p>
+        <p class="text-xs text-white font-bold mb-2">{movie.Actors}</p>
+        <p class="text-xs text-white">Galardones</p>
+        <p class="text-xs text-white font-bold mb-2">{movie.Awards}</p>        
+        
+      </div>
+      {/if}
+
+      
       
       <div />
 
