@@ -6,7 +6,7 @@
     api();
   });
 
-  let hero = "guardians of";
+  let hero = "";
   let movie;
   let stars = [1, 2, 3, 4, 5];
   async function api(values) {
@@ -22,14 +22,20 @@
       })
       .catch((error) => console.error(error));
   }
+
+
 </script>
 
 <div class="flex flex-col justify-center">
-  <div class=" flex flex-row m-auto bg-white w-auto rounded-3xl py-2 px-4">
-    <input class="" type="text" placeholder="Buscar..." bind:value={hero} />
+  <div class=" flex flex-row m-auto bg-white w-1/2 rounded-3xl px-4">
+    <input class="outline-none w-full"   
+    type="text" 
+    placeholder="Buscar..." 
+    bind:value={hero} />
+
     <img
       on:click={() => api(hero)}
-      class="w-auto h-6"
+      class="w-auto h-4 m-auto"
       src="../busqueda.png"
       alt=""
     />
@@ -47,7 +53,7 @@
           </p>
         </div>
 
-        <div id="info" class="w-1/2 p-4">
+        <div id="info" class="w-1/2 px-4">
           <p class="text-xs text-white">Director</p>
           <p class="text-xs text-white font-bold mb-2">{movie.Director}</p>
           <p class="text-xs text-white">Genero</p>
@@ -61,7 +67,9 @@
         </div>
       </div>
 
-      <div id="stars" class="px-4 flex flex-row">
+      <div id="stars" class="px-8 flex flex-row">
+        <p class="text-md text-white font-boldx  my-auto mr-2">Calificación IMDB</p>
+        
         {#each stars as star, index}
           <ul class="my-1 flex list-none gap-1 p-0" data-te-rating-init>
             <li>
@@ -72,10 +80,10 @@
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
+                  fill={(index < Math.round(movie.imdbRating / 2))  ? 'full' : 'none'}
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
-                  stroke="currentColor"
+                  stroke="white"
                 >
                   <path
                     stroke-linecap="round"
@@ -87,10 +95,16 @@
             </li>
           </ul>
         {/each}
+        <p class="text-xs text-white font-bold ml-2 my-auto">({movie.imdbRating})</p>
       </div>
+
+      <div class="flex flex-row justify-center my-4">
+        <button class="bg-blackx margin-auto rounded-3xl border-2 border-white text-white px-4 py-1">Mas detalles</button>
+      </div>
+      
       <div />
 
-      <div class="w-auto px-4">
+      <div class="w-auto px-8 mt-2">
         <p class="text-xs text-white">{movie.Plot}</p>
       </div>
     {:else}
